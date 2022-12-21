@@ -1,4 +1,5 @@
 using IDWalks.Data;
+using IDWalks.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<IndiaWalkDbContext>(option => option.UseSqlServer
 (builder.Configuration.GetConnectionString("IndiaWalks")));
+
+builder.Services.AddScoped<IRegionsRepo, RegionsRepo>();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 
