@@ -17,6 +17,8 @@ builder.Services.AddDbContext<IndiaWalkDbContext>(option => option.UseSqlServer
 
 builder.Services.AddScoped<IRegionsRepo, RegionsRepo>();
 
+builder.Services.AddScoped<IWalkRepo,WalkRepo>();
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
