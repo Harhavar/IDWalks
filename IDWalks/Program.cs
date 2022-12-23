@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using IDWalks.Data;
 using IDWalks.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Program>());
 
 builder.Services.AddDbContext<IndiaWalkDbContext>(option => option.UseSqlServer
 (builder.Configuration.GetConnectionString("IndiaWalks")));

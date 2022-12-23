@@ -47,10 +47,10 @@ namespace IDWalks.Controllers
         public async Task<IActionResult> addWalkDificultyAsync(Models.DTO.AddWalkDificultyRequest walkDeficulty)
         {
             //validate 
-            if (!await ValidateaddWalkDificultyAsync(walkDeficulty))
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!await ValidateaddWalkDificultyAsync(walkDeficulty))
+            //{
+            //    return BadRequest(ModelState);
+            //}
             //convert DTo to Domine Object 
             var walkdificulty = new Models.Domines.WalkDeficulty()
             {
@@ -82,10 +82,10 @@ namespace IDWalks.Controllers
         public async Task<IActionResult> UpdateWalkDificultyAsync([FromRoute] Guid id , [FromBody] Models.DTO.UpdateWalkDificulty UpdatewalkDeficulty)
         {
             //validate 
-            if (!await ValidateUpdateWalkDificultyAsync(UpdatewalkDeficulty))
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!await ValidateUpdateWalkDificultyAsync(UpdatewalkDeficulty))
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             //Convert DTO to Domine model
             var walkdificult = new Models.Domines.WalkDeficulty()
