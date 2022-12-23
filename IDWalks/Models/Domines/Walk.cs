@@ -12,6 +12,8 @@
 
         public Guid WalkDeficultyId { get; set; }
 
+
+        // navigation property
         public Region region { get; set; }
 
         public WalkDeficulty walkDeficulty { get; set; }

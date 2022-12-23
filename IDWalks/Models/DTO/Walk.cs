@@ -1,9 +1,10 @@
-﻿using IDWalks.Models.Domines;
+﻿//using IDWalks.Models.Domines;
 
 namespace IDWalks.Models.DTO
 {
     public class Walk
     {
+        public Guid id { get; set; }
         public string name { get; set; }
 
         public double Length { get; set; }
@@ -12,6 +13,7 @@ namespace IDWalks.Models.DTO
 
         public Guid WalkDeficultyId { get; set; }
 
+       //navigation property
         public Region region { get; set; }
 
         public WalkDeficulty walkDeficulty { get; set; }
