@@ -19,6 +19,8 @@ builder.Services.AddScoped<IRegionsRepo, RegionsRepo>();
 
 builder.Services.AddScoped<IWalkRepo,WalkRepo>();
 
+builder.Services.AddScoped<IWalkDeficultyRepo, WalkDeficultyRepo>();
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
