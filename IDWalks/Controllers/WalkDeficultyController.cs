@@ -46,6 +46,11 @@ namespace IDWalks.Controllers
 
         public async Task<IActionResult> addWalkDificultyAsync(Models.DTO.AddWalkDificultyRequest walkDeficulty)
         {
+            //validate 
+            if (!await ValidateaddWalkDificultyAsync(walkDeficulty))
+            {
+                return BadRequest(ModelState);
+            }
             //convert DTo to Domine Object 
             var walkdificulty = new Models.Domines.WalkDeficulty()
             {
@@ -76,6 +81,12 @@ namespace IDWalks.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> UpdateWalkDificultyAsync([FromRoute] Guid id , [FromBody] Models.DTO.UpdateWalkDificulty UpdatewalkDeficulty)
         {
+            //validate 
+            if (!await ValidateUpdateWalkDificultyAsync(UpdatewalkDeficulty))
+            {
+                return BadRequest(ModelState);
+            }
+
             //Convert DTO to Domine model
             var walkdificult = new Models.Domines.WalkDeficulty()
             {
@@ -130,5 +141,47 @@ namespace IDWalks.Controllers
 
         }
 
+        #region 
+        private async Task<bool> ValidateaddWalkDificultyAsync(Models.DTO.AddWalkDificultyRequest walkDeficulty)
+        {
+            if (walkDeficulty == null)
+            {
+                ModelState.AddModelError(nameof(walkDeficulty), $"{nameof(walkDeficulty)} canot be empty");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(walkDeficulty.code))
+            {
+                ModelState.AddModelError(nameof(walkDeficulty.code), $"{(walkDeficulty.code)} is Required");
+            }
+
+            if (ModelState.ErrorCount > 0)
+            {
+                return false;
+
+            }
+            return true;
+        }
+
+        private async Task<bool> ValidateUpdateWalkDificultyAsync(Models.DTO.UpdateWalkDificulty UpdatewalkDeficulty)
+        {
+
+            if (UpdatewalkDeficulty == null)
+            {
+                ModelState.AddModelError(nameof(UpdatewalkDeficulty), $"{nameof(UpdatewalkDeficulty)} canot be empty");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(UpdatewalkDeficulty.code))
+            {
+                ModelState.AddModelError(nameof(UpdatewalkDeficulty.code), $"{(UpdatewalkDeficulty.code)} is Required");
+            }
+
+            if (ModelState.ErrorCount > 0)
+            {
+                return false;
+
+            }
+            return true;
+        }
+        #endregion
     }
 }
