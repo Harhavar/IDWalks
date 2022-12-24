@@ -2,7 +2,9 @@
 using IDWalks.Models.Domines;
 using IDWalks.Models.DTO;
 using IDWalks.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace IDWalks.Controllers
 {
@@ -20,7 +22,7 @@ namespace IDWalks.Controllers
         }
 
         [HttpGet]
-
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetAllWalkDeficultyAsync()
         {
             var walkDeficulty = await walkDeficultyRepo.GetWalkDeficulty();
@@ -33,6 +35,7 @@ namespace IDWalks.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetWalkDeficulty")]
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetWalkDeficulty(Guid id)
         {
            var walk = await walkDeficultyRepo.GetWalkDeficultyAsync(id);
@@ -43,7 +46,7 @@ namespace IDWalks.Controllers
         }
 
         [HttpPost]
-
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> addWalkDificultyAsync(Models.DTO.AddWalkDificultyRequest walkDeficulty)
         {
             //validate 
@@ -119,6 +122,7 @@ namespace IDWalks.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
 
         public async Task<IActionResult> DeleteWalkDeficulty(Guid id)
         {

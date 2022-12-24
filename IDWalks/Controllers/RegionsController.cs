@@ -2,6 +2,7 @@
 using IDWalks.Models.Domines;
 using IDWalks.Models.DTO;
 using IDWalks.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
@@ -10,6 +11,7 @@ namespace IDWalks.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
+    
     public class RegionsController : Controller
     {
         private readonly IRegionsRepo regionsRepo;
@@ -21,6 +23,7 @@ namespace IDWalks.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetAllRegions()
         {
             var regions = await regionsRepo.GetAllAsync();
@@ -53,7 +56,7 @@ namespace IDWalks.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetRegionAsync")]
-
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetRegionAsync(Guid id)
         {
             var region = await regionsRepo.GetRegion(id);
@@ -70,6 +73,7 @@ namespace IDWalks.Controllers
 
         [HttpPost]
 
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> AddRegionAsync(Models.DTO.AddRegionRequest addRegionRequest)
         {
             //validation request
@@ -114,6 +118,7 @@ namespace IDWalks.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> DeleteRegionAsync(Guid id)
         {
             // get region from database 
@@ -146,6 +151,7 @@ namespace IDWalks.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> UpdateRegionAsync([FromRoute] Guid id ,[FromBody] Models.DTO.UpdateRegionRequest updateRegionRequest)
         {
             //validation 

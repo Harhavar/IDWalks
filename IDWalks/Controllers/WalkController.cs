@@ -2,8 +2,10 @@
 using IDWalks.Models.Domines;
 using IDWalks.Models.DTO;
 using IDWalks.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Immutable;
+using System.Data;
 
 namespace IDWalks.Controllers
 {
@@ -25,6 +27,7 @@ namespace IDWalks.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetWalksAsync()
         {
             var walk = await walkRepo.GetAllWalksAsync();
@@ -72,6 +75,7 @@ namespace IDWalks.Controllers
         [Route("{id:guid}")]
         [ActionName("GetWalkAsync")]
         //[ActionName("GetRegionAsync")]
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetWalkAsync(Guid id)
         {
             //get walk domine object from database
@@ -84,7 +88,7 @@ namespace IDWalks.Controllers
         }
 
         [HttpPost]
-
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> AddWalkAsync([FromBody] Models.DTO.AddWalkRequest addWalkRequest)
         {
             //validate the incoming request 
@@ -122,7 +126,7 @@ namespace IDWalks.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
-
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> UpdateWalkAsync([FromRoute] Guid id, [FromBody] Models.DTO.UpdateWalkRequest updateWalkRequest)
         {
             //validate update request
@@ -165,7 +169,7 @@ namespace IDWalks.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
-
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> DeleteWalkAsync(Guid id)
         {
             // get walk from database 
